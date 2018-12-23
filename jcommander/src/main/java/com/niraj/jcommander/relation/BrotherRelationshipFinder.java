@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationNameEnum;
+import com.niraj.jcommander.util.StremUtils;
 
 @Component
 public class BrotherRelationshipFinder extends RelationShipFinder {
@@ -22,7 +23,7 @@ public class BrotherRelationshipFinder extends RelationShipFinder {
 		log.info("Finding Brothers for {}", person);
 		String brothers= findPerson.getSiblings()
 				.stream()
-				.filter(brother -> brother.getGender().equalsIgnoreCase("Male"))
+				.filter(StremUtils.MALE_FILTER)
 				.map(brother -> brother.getName())
 				.collect(Collectors.joining(",")); 
 		log.info("Brothers for {} are {}", findPerson,brothers);

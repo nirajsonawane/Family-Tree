@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationNameEnum;
+import com.niraj.jcommander.util.StremUtils;
 
 @Component
 public class GrandMotherRelationshipFinder extends RelationShipFinder {
@@ -25,7 +26,7 @@ public class GrandMotherRelationshipFinder extends RelationShipFinder {
 				.stream()
 				.map(parent -> parent.getParent())
 				.flatMap(x -> x.stream())
-				.filter(grandParent -> grandParent.getGender().equalsIgnoreCase("Female"))
+				.filter(StremUtils.FEMALE_FILTER)
 				.map(Person::getName)
 				.collect(Collectors.joining(","));
 

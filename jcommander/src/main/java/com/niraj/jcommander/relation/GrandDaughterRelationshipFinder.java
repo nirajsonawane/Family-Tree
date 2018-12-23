@@ -1,7 +1,5 @@
 package com.niraj.jcommander.relation;
 
-import java.util.stream.Collectors;
-
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -18,21 +16,11 @@ public class GrandDaughterRelationshipFinder extends RelationShipFinder {
 	private static final Logger log = LoggerFactory.getLogger(GrandDaughterRelationshipFinder.class);
 
 	@Override
-	public String findRelation( Person person) {
+	public String findRelation(Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Grand Daughter for {}", findPerson);
-
-		String grandChlids = findPerson.getRelations()
-				.getChilds()
-				.stream()
-				.map(child -> child.getRelations().getChilds())
-				.flatMap(x -> x.stream())
-				.filter(StremUtils.FEMALE_FILTER)
-				.map(grandChild -> grandChild.getName())
-				.collect(Collectors.joining(","));
-
+		String grandChlids = super.findGrandChilds(findPerson, StremUtils.FEMALE_FILTER);
 		log.info("Grand Daughter for {} are {}", findPerson, grandChlids);
-
 		return grandChlids;
 
 	}
