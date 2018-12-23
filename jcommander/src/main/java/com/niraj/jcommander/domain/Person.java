@@ -3,7 +3,7 @@ package com.niraj.jcommander.domain;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.niraj.jcommander.FamilyTreeException;
+import com.niraj.jcommander.exception.FamilyTreeException;
 
 import lombok.Builder;
 import lombok.Getter;

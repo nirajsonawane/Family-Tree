@@ -24,14 +24,12 @@ public class CommondProcessor {
 
 		log.info("Recvied Command  {}",Arrays.toString(args));
 		JCommander jCommander = new JCommander();
-		commands.forEach(System.out::println);
-		commands.forEach(command -> jCommander.addObject(command));
-		// jCommander.setCaseSensitiveOptions(true);
+		commands.forEach(command -> jCommander.addObject(command));	
 		jCommander.parse(args);
 		validatedCommand();
 		Object commandOutPut = commands.stream()
-				             .filter(Command::validate)
-				             .findFirst().get().run();
+										.filter(Command::validate)
+										.findFirst().get().run();
 		log.info("Command  OutPut {} ",commandOutPut);
 		commands.forEach(Command::cleanup);
 	}

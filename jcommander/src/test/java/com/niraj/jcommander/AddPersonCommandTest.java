@@ -1,6 +1,5 @@
 package com.niraj.jcommander;
 
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,15 +17,13 @@ import com.niraj.jcommander.command.AddPersonCommand;
 import com.niraj.jcommander.command.SearchRelationCommand;
 import com.niraj.jcommander.service.FamilyTreeService;
 
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AddChildCommandTest {
+public class AddPersonCommandTest {
 
 	
 	@InjectMocks
-	private AddChildCommand addChildCommand;
+	private AddPersonCommand addPersonCommand;
 
 	@Autowired
 	private SearchRelationCommand searchRelationCommand;
@@ -38,31 +35,31 @@ public class AddChildCommandTest {
 
 	@After
 	public void Cleanup() {
-		addChildCommand.cleanup();
+		addPersonCommand.cleanup();
 	}
 
 	@Test
-	public void shouldAddSonToFamilyTree() {
-		String[] input = { "Father=Ashok", "Son=Niraj"};
+	public void shouldAddMaleToFamilyTree() {
+		String[] input = { "Male=Ashok"};
 		JCommander jCommander = new JCommander();
-		jCommander.addObject(addChildCommand);
+		jCommander.addObject(addPersonCommand);
 		jCommander.addObject(searchRelationCommand);
 		jCommander.parse(input);
-		Mockito.doNothing().when(familyTreeService).addChild(Mockito.any(), Mockito.any());
-		String output = addChildCommand.run();
-		Assert.assertEquals("Welcome  Niraj", output);
+		Mockito.doNothing().when(familyTreeService).addPerson(Mockito.any());
+		String output = addPersonCommand.run();
+		Assert.assertEquals("Welcome  Ashok", output);
 		
 	}
 	@Test
-	public void shouldAddDaughterToFamilyTree() {
-		String[] input = { "Father=Ashok", "Daughter=Rachana"};
+	public void shouldAddFemaleToFamilyTree() {
+		String[] input = { "Female=Alka"};
 		JCommander jCommander = new JCommander();
-		jCommander.addObject(addChildCommand);
+		jCommander.addObject(addPersonCommand);
 		jCommander.addObject(searchRelationCommand);
 		jCommander.parse(input);
-		Mockito.doNothing().when(familyTreeService).addChild(Mockito.any(), Mockito.any());
-		String output = addChildCommand.run();
-		Assert.assertEquals("Welcome  Rachana", output);
+		Mockito.doNothing().when(familyTreeService).addPerson(Mockito.any());
+		String output = addPersonCommand.run();
+		Assert.assertEquals("Welcome  Alka", output);
 		
 	}
 

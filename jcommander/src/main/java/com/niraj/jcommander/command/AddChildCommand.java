@@ -15,11 +15,12 @@ import org.springframework.stereotype.Component;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.niraj.jcommander.FamilyTreeService;
 import com.niraj.jcommander.converter.FemaleConverter;
 import com.niraj.jcommander.converter.MaleConverter;
 import com.niraj.jcommander.converter.PersonConverter;
 import com.niraj.jcommander.domain.Person;
+import com.niraj.jcommander.service.FamilyTreeService;
+import com.niraj.jcommander.service.FamilyTreeServiceImpl;
 import com.niraj.jcommander.validator.MutuallyExclusiveFields;
 
 import lombok.EqualsAndHashCode.Exclude;
@@ -33,17 +34,17 @@ import lombok.ToString;
 @ToString
 @Component
 @MutuallyExclusiveFields(baseField = "son", matchField = "daughter")
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AddChildCommand implements Command<String> {
 
 	private static final Logger log = LoggerFactory.getLogger(AddChildCommand.class);
 	
 	
 	@Autowired
-	@Exclude
-	FamilyTreeService personRepository;
+	private FamilyTreeService service;
+	
+	
 
-	@Parameter(names = { "Mother", "Father" }, converter = PersonConverter.class)
+	@Parameter(names = { "Mother", "Father" },converter=PersonConverter.class )
 	@NotNull
 	private Person parent;
 
@@ -57,7 +58,7 @@ public class AddChildCommand implements Command<String> {
 	public String run() {
 		log.info("Add Child");
 		Person child = Optional.ofNullable(son).orElse(daughter);
-		personRepository.addChild(parent, child);
+		service.addChild(parent, child);
 		return "Welcome  " + child.getName(); 
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.niraj.jcommander.FamilyTreeException;
+import com.niraj.jcommander.exception.FamilyTreeException;
 
 @Component
 public class RelationShipFinderFactory {

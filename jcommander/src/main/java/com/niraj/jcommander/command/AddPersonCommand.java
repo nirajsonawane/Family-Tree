@@ -9,10 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.niraj.jcommander.FamilyTreeService;
 import com.niraj.jcommander.converter.FemaleConverter;
 import com.niraj.jcommander.converter.MaleConverter;
 import com.niraj.jcommander.domain.Person;
+import com.niraj.jcommander.service.FamilyTreeService;
+import com.niraj.jcommander.service.FamilyTreeServiceImpl;
 import com.niraj.jcommander.validator.MutuallyExclusiveFields;
 
 import lombok.Getter;
@@ -29,9 +30,7 @@ import lombok.ToString;
 public class AddPersonCommand implements Command<String> {
 
 	@Autowired	
-	private FamilyTreeService personRepository;
-	
-	
+	private FamilyTreeService familyTreeService;	
 	
 	@Parameter(names = { "Female" }, converter = FemaleConverter.class)
 	private Person mother;
@@ -42,7 +41,7 @@ public class AddPersonCommand implements Command<String> {
 	@Override
 	public String run() {		
 		Person person = Optional.ofNullable(mother).orElse(father);
-		personRepository.addPerson(Optional.ofNullable(mother).orElse(father));
+		familyTreeService.addPerson(Optional.ofNullable(mother).orElse(father));
 		return "Welcome  " + person.getName();
 	} 
 

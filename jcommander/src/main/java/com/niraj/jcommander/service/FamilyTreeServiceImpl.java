@@ -1,6 +1,5 @@
-package com.niraj.jcommander;
+package com.niraj.jcommander.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,26 +9,29 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import com.niraj.jcommander.domain.Person;
+import com.niraj.jcommander.repository.PersonRepository;
 import com.niraj.jcommander.validator.PersonExists;
 import com.niraj.jcommander.validator.UniqueName;
 
 @Component
 @Validated
-public class FamilyTreeService {
+public class FamilyTreeServiceImpl  implements FamilyTreeService{
 
-	private static final Logger log = LoggerFactory.getLogger(FamilyTreeService.class);
+	private static final Logger log = LoggerFactory.getLogger(FamilyTreeServiceImpl.class);
 
 	@Autowired
 	private PersonRepository personRepository;
 
-
-	public void addPerson(@UniqueName Person person) {
+	
+	@Override
+	public void addPerson(Person person) {
 		personRepository.add(person);
 		log.info("Person Added To Family Tree");
 	} 
 
+	@Override
 	public void addChild(@PersonExists Person parent, @UniqueName Person child) {
-		Person parentFromList = personRepository.getPerson(parent);
+		Person parentFromList = personRepository.get(parent);
 		log.info("Parent Found {}", parentFromList);
 		parentFromList.getRelations().addChilds(child);
 		child.getRelations().addParent(parentFromList);
@@ -44,7 +46,7 @@ public class FamilyTreeService {
 
 	}
 
-	
+	@Override
 	public void updateSpouse(Person husband, Person wife) {
 		boolean updateWife = personRepository.isPresent(husband);
 		boolean updateHusband = personRepository.isPresent(wife);
@@ -55,9 +57,10 @@ public class FamilyTreeService {
 		
 	}
 
+	
 	private void updateHusbandToWife(Person husband, Person wife) {
 		
-		Person wifeFromRepo = personRepository.getPerson(wife);
+		Person wifeFromRepo = personRepository.get(wife);
 		husband.getRelations().addSpouse(wifeFromRepo);
 		wifeFromRepo.getRelations().addSpouse(husband);
 		personRepository.add(husband);
@@ -65,17 +68,18 @@ public class FamilyTreeService {
 	}
 
 	private void updateWifeToHusband(Person husband, Person wife) {
-		Person husbandFromRepo = personRepository.getPerson(husband);
+		Person husbandFromRepo = personRepository.get(husband);
 		husbandFromRepo.getRelations().addSpouse(wife);
 		wife.getRelations().addSpouse(husbandFromRepo);
 		personRepository.add(wife);
 		
 	}
 	
+	@Override
 	public void printTree(@PersonExists Person person)
 	{
 		//System.out.println("Total Pepole in Repo " + personRepository.size());
-		Person persionFromList = personRepository.getPerson(person);
+		Person persionFromList = personRepository.get(person);
 		System.out.println(persionFromList.printPerson());
 		List<Person> childs = persionFromList.getRelations().getChilds();
 		childs.forEach(p->System.out.print(p.printPerson()));
@@ -87,11 +91,13 @@ public class FamilyTreeService {
 		
 	}
 	
+	@Override
 	public Person findPerson(Person person)
 	{
-		return personRepository.getPerson(person);
+		return personRepository.get(person);
 	}
 
+	@Override
 	public void printAll()
 	{
 		personRepository.getAll().forEach(System.out::println);

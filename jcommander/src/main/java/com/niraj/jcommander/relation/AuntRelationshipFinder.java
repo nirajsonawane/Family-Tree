@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.niraj.jcommander.RelationName;
 import com.niraj.jcommander.domain.Person;
+import com.niraj.jcommander.util.RelationName;
 import com.niraj.jcommander.validator.PersonExists;
 
 @Component
@@ -19,9 +19,8 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 
 	private static final Logger log = LoggerFactory.getLogger(AuntRelationshipFinder.class);
 
-
 	@Override
-	public String findRelation(@PersonExists Person person) {
+	public String findRelation( Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Aunt for {}", findPerson);
 
@@ -59,12 +58,7 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 	@PostConstruct
 	@Override
 	void setRelationName() {
-		System.out.println("In Post Construct");
-		System.out.println("*****************************************");
-		System.out.println("####################################");
 		relationName = RelationName.AUNT;
-		System.out.println("Relation Name "+ relationName);
-		System.out.println("Relation Name "+ getRelationName());
 	}
 
 }

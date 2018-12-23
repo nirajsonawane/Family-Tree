@@ -1,4 +1,4 @@
-package com.niraj.jcommander;
+package com.niraj.jcommander.exception;
 
 public class FamilyTreeException extends RuntimeException {
 

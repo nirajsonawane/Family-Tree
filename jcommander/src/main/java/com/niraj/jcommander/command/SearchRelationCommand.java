@@ -18,8 +18,6 @@ import com.niraj.jcommander.converter.PersonConverter;
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.relation.RelationShipFinderFactory;
 
-import lombok.EqualsAndHashCode.Exclude;
-import sun.util.logging.resources.logging;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
