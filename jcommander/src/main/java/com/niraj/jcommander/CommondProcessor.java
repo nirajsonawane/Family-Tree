@@ -16,28 +16,30 @@ import com.niraj.jcommander.command.Command;
 public class CommondProcessor {
 
 	private static final Logger log = LoggerFactory.getLogger(CommondProcessor.class);
-
+	
 	@Autowired
 	private List<Command> commands;
 
-	public void process(String args[]) {
+	public String process(String args[]) {
 
 		log.info("Recvied Command  {}",Arrays.toString(args));
+		commands.forEach(Command::cleanup);
 		JCommander jCommander = new JCommander();
 		commands.forEach(command -> jCommander.addObject(command));	
 		jCommander.parse(args);
-		validatedCommand();
+		validatedCommand(args);
 		Object commandOutPut = commands.stream()
 										.filter(Command::validate)
 										.findFirst().get().run();
 		log.info("Command  OutPut {} ",commandOutPut);
-		commands.forEach(Command::cleanup);
+		return commandOutPut.toString();
 	}
+	
  
-	private void validatedCommand() {
+	private void validatedCommand(String[] args) {
 
 		if (1 != commands.stream().filter(Command::validate).count())
-			throw new InvalidParameterException("Invalid Parameter");
+			throw new InvalidParameterException("Invalid Command " + Arrays.toString(args));
 
 	}
 

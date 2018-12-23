@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.niraj.jcommander.converter.FemaleConverter;
-import com.niraj.jcommander.converter.MaleConverter;
-import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.service.FamilyTreeServiceImpl;
 
+import lombok.EqualsAndHashCode.Exclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,34 +23,29 @@ import lombok.ToString;
 @Parameters(separators = "=")
 @ToString
 @Component
-@Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class UpdateSpouseCommand implements Command<String>{
-	
-	private static final Logger log = LoggerFactory.getLogger(UpdateSpouseCommand.class);
-	
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+public class CleanTreeCommand implements Command<String> {
+
+	private static final Logger log = LoggerFactory.getLogger(CleanTreeCommand.class);
+
 	@Autowired
-	private FamilyTreeServiceImpl personRepository;
+	FamilyTreeServiceImpl personService;
 
+	@Parameter(names = "Clean")
 	@NotNull
-	@Parameter(names = "Husband",converter=MaleConverter.class)
-	private Person husband;
+	private String clean;
 
-	@Parameter(names = "Wife",converter=FemaleConverter.class)
-	@NotNull
-	private Person wife;
- 
 	@Override
 	public String run() {
-		log.info("Updating Spouse Info");
-		return personRepository.updateSpouse(husband,wife);
-		
+		log.info("Clearing the family Tree");	
+		personService.cleanFamilyTree();;
+		return "Tree is Clean";
+
 	}
 
 	@Override
 	public void cleanup() {
-		husband=null;
-		wife=null;
-		
+		clean = null;
 	}
 
 }

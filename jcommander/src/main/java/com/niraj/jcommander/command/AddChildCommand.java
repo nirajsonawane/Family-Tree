@@ -52,6 +52,7 @@ public class AddChildCommand implements Command<String> {
 	public String run() {
 		log.info("Add Child");
 		Person child = Optional.ofNullable(son).orElse(daughter);
+		service.printAll();
 		service.addChild(parent, child);
 		return "Welcome  " + child.getName(); 
 	}

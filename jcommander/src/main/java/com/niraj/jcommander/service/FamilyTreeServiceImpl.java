@@ -15,56 +15,57 @@ import com.niraj.jcommander.validator.UniqueName;
 
 @Component
 @Validated
-public class FamilyTreeServiceImpl  implements FamilyTreeService{
+public class FamilyTreeServiceImpl implements FamilyTreeService {
 
 	private static final Logger log = LoggerFactory.getLogger(FamilyTreeServiceImpl.class);
 
 	@Autowired
 	private PersonRepository personRepository;
 
-	
 	@Override
 	public void addPerson(Person person) {
 		personRepository.add(person);
 		log.info("Person Added To Family Tree");
-	} 
+	}
 
 	@Override
-	public void addChild( Person parent,  Person child) {
+	public void addChild(Person parent, Person child) {
 		Person parentFromList = personRepository.get(parent);
 		log.info("Parent Found {}", parentFromList);
-		parentFromList.getRelations().addChilds(child);
+		parentFromList.getRelations().addChilds(child); 
 		child.getRelations().addParent(parentFromList);
-		
-		if(null!=parentFromList.getRelations().getSpouse())
-		{
-			parentFromList.getRelations().getSpouse().getRelations().addChilds(child);
-			child.getRelations().addParent(parentFromList.getRelations().getSpouse());
+
+		if (parentFromList.isMarried()) {
+			Person spouse = parentFromList.getRelations().getSpouse();
+			spouse.getRelations().addChilds(child);
+			child.getRelations().addParent(spouse);
+			log.info("Updating Spouse {}",spouse);
 		}
-		log.info("Updated Child {}",child);
+		log.info("Updated Child {}", child);
 		personRepository.add(child);
 
 	}
 
 	@Override
-	public void updateSpouse(Person husband, Person wife) {
-		boolean updateWife = personRepository.isPresent(husband);
-		boolean updateHusband = personRepository.isPresent(wife);
-		if(updateWife)
-			updateWifeToHusband(husband,wife);
-		if(updateHusband)
-			updateHusbandToWife(husband,wife);
-		
+	public String updateSpouse(Person husband, Person wife) {
+		boolean updateWife = personRepository.isPresent(husband);		
+		if (updateWife) {
+			updateWifeToHusband(husband, wife);
+			return "Welcome " + wife.getName();
+		} else {
+			updateHusbandToWife(husband, wife);
+			return "Welcome " + husband.getName();
+		}
+
 	}
 
-	
 	private void updateHusbandToWife(Person husband, Person wife) {
-		
+
 		Person wifeFromRepo = personRepository.get(wife);
 		husband.getRelations().addSpouse(wifeFromRepo);
 		wifeFromRepo.getRelations().addSpouse(husband);
 		personRepository.add(husband);
-		
+
 	}
 
 	private void updateWifeToHusband(Person husband, Person wife) {
@@ -72,36 +73,37 @@ public class FamilyTreeServiceImpl  implements FamilyTreeService{
 		husbandFromRepo.getRelations().addSpouse(wife);
 		wife.getRelations().addSpouse(husbandFromRepo);
 		personRepository.add(wife);
-		
+
 	}
-	
+
 	@Override
-	public void printTree(Person person)
-	{
-		//System.out.println("Total Pepole in Repo " + personRepository.size());
+	public void printTree(Person person) {
+		// System.out.println("Total Pepole in Repo " + personRepository.size());
 		Person persionFromList = personRepository.get(person);
 		System.out.println(persionFromList.printPerson());
 		List<Person> childs = persionFromList.getRelations().getChilds();
-		childs.forEach(p->System.out.print(p.printPerson()));
-		if(persionFromList.getRelations().getChilds().size()>0)
-		System.out.println();
-		childs.forEach(p->{
-			p.getRelations().getChilds().forEach(child->printTree(child));
+		childs.forEach(p -> System.out.print(p.printPerson()));
+		if (persionFromList.getRelations().getChilds().size() > 0)
+			System.out.println();
+		childs.forEach(p -> {
+			p.getRelations().getChilds().forEach(child -> printTree(child));
 		});
-		
+
 	}
-	
+
 	@Override
-	public Person findPerson(Person person)
-	{
+	public Person findPerson(Person person) {
 		return personRepository.get(person);
 	}
 
 	@Override
-	public void printAll()
-	{
+	public void printAll() {
 		personRepository.getAll().forEach(System.out::println);
 	}
-	
+
+	@Override
+	public void cleanFamilyTree() {
+		personRepository.clear();
+	}
 
 }

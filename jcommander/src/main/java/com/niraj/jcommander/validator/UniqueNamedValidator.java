@@ -23,7 +23,7 @@ public class UniqueNamedValidator implements ConstraintValidator<UniqueName, Per
 	@Override
 	public boolean isValid(Person object, ConstraintValidatorContext context) {
 
-		log.info("Validating Person for Duplicate {}",object);
+		log.info("Validating Person for UniqueName {}",object);
 		return !personRepository.isPresent(object);
 
 	}

@@ -1,0 +1,11 @@
+Male=Evan
+Husband=Evan Wife=Diana
+Father=Evan Son=John
+Father=Evan Son=Alex
+Father=Evan Son=Joe
+Father=Evan Daughter=Nisha
+Husband=Alex Wife=Nancy
+Husband=Joe Wife=Niki
+Wife=Nisha Husband=Adam
+Person=Alex Relation=Brother
+Person=Alex Relation=Sister

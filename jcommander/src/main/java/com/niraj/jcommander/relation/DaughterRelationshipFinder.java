@@ -12,27 +12,27 @@ import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationName;
 
 @Component
-public class SonRelationshipFinder extends RelationShipFinder {
+public class DaughterRelationshipFinder extends RelationShipFinder {
 
-	private static final Logger log = LoggerFactory.getLogger(SonRelationshipFinder.class);
+	private static final Logger log = LoggerFactory.getLogger(DaughterRelationshipFinder.class);
 
 	@Override
 	public String findRelation( Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
-		log.info("Finding Sons for {}", findPerson);
+		log.info("Finding Daughter for {}", findPerson);
 		String sons = findPerson.getRelations()
-				.getSons() 
+				.getDaughters()
 				.stream()
 				.map(Person::getName)
 				.collect(Collectors.joining(","));
-		log.info("Sons for {} are {}", sons);
+		log.info("Daughter for {} are {}", sons);
 		return sons;
 	}
 
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName=RelationName.SON;
+		this.relationName=RelationName.DAUGHTER;
 		
 	}
 

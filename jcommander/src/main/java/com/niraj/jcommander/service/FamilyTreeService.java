@@ -12,10 +12,12 @@ public interface FamilyTreeService {
 
 	void printTree(@PersonExists Person person);
 
-	void updateSpouse(Person husband, Person wife);
+	String updateSpouse(Person husband, Person wife);
 
 	void addChild(@PersonExists Person parent, @UniqueName Person child);
 
 	void addPerson(@UniqueName Person person);
+
+	void cleanFamilyTree();
 
 }

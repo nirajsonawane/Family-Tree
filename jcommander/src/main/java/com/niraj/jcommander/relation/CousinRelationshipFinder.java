@@ -21,9 +21,9 @@ public class CousinRelationshipFinder extends RelationShipFinder {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Cousin for {}", findPerson);
 
-		String cousinsAsString = findPerson.getAnyParent()
+		String cousinsAsString = findPerson.getParentBelongsToCurrentFamilyTree().get(0)
 				.getSiblings()
-				.stream()
+				.stream() 
 				.map(uncles -> uncles.getRelations().getChilds())
 				.flatMap(x -> x.stream())
 				.map(cousins -> cousins.getName())

@@ -45,11 +45,14 @@ public class Person {
 	public Person getAnyParent() {
 		return relations.getFather()
 				.orElse(relations.getMother()
-				.orElseThrow(() -> new FamilyTreeException("No Parent")));
+				.orElseThrow(() -> new FamilyTreeException("No Parent for "+name)));
 	}
 
-	public List<Person> getParent() {
+	public List<Person> getParent() { 
 		return relations.getParents();
+	}
+	public List<Person> getParentBelongsToCurrentFamilyTree() { 
+		return relations.getParents().stream().filter(p->!p.getParent().isEmpty()).collect(Collectors.toList());
 	}
 
 	@Override

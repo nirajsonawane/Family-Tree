@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationName;
 
+import lombok.extern.java.Log;
+
 @Component
 public class UncleRelationshipFinder extends RelationShipFinder {
 
@@ -22,15 +24,17 @@ public class UncleRelationshipFinder extends RelationShipFinder {
 	public String findRelation(Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Uncle for {}", findPerson);
-		String directUncle = "";
+		String directUncle = ""; 
 		String indirectUncle = "";
 
-		Map<String, List<Person>> uncleAuntMap = findPerson.getParent()
+		Map<String, List<Person>> uncleAuntMap = findPerson.getParentBelongsToCurrentFamilyTree()
 				.stream()
 				.map(parent -> parent.getSiblings())
 				.flatMap(x -> x.stream())
 				.collect(Collectors.groupingBy(Person::getGender));
 
+		log.info("Map {}",uncleAuntMap);
+		
 		if (uncleAuntMap.containsKey("Male")) {
 
 			directUncle = uncleAuntMap.get("Male")
@@ -49,7 +53,7 @@ public class UncleRelationshipFinder extends RelationShipFinder {
 		}
 
 		log.info("Uncle For {} are {} and {}", findPerson.getName(), directUncle, indirectUncle);
-		return directUncle + indirectUncle;
+		return directUncle + "," +indirectUncle;
 
 	}
 

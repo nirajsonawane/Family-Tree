@@ -14,7 +14,8 @@ public class PersonRepository {
 	private List<Person> list = new ArrayList<>();
 
 	public boolean isPresent(Person object) {
-		return list.stream().filter(per -> per.getName().equals(object.getName())).count() == 1;
+		
+		return list.stream().filter(per -> per.getName().equalsIgnoreCase(object.getName())).count() == 1;
 	}
 
 	public void add(Person person) {
@@ -36,6 +37,11 @@ public class PersonRepository {
 
 	public List<Person> getAll() {
 		return list;
+	}
+
+	public void clear() {
+		list.clear();
+		
 	}
 
 }

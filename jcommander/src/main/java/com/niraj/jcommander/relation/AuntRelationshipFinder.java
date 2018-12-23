@@ -25,8 +25,8 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 
 		String directAunts = "";
 		String indirectAunts = "";
-		Map<String, List<Person>> uncleAuntMap = findPerson.getParent()
-				.stream()
+		Map<String, List<Person>> uncleAuntMap = findPerson.getParentBelongsToCurrentFamilyTree()
+				.stream() 
 				.map(parent -> parent.getSiblings())
 				.flatMap(x -> x.stream())
 				.collect(Collectors.groupingBy(Person::getGender));
