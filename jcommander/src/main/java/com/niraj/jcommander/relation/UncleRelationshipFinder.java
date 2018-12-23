@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationName;
-import com.niraj.jcommander.validator.PersonExists;
 
 @Component
 public class UncleRelationshipFinder extends RelationShipFinder {

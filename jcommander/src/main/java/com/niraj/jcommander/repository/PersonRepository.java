@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.exception.FamilyTreeException;

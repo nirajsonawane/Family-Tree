@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.niraj.jcommander.converter.FemaleConverter;
-import com.niraj.jcommander.converter.MaleConverter;
 import com.niraj.jcommander.domain.Person;
 
 

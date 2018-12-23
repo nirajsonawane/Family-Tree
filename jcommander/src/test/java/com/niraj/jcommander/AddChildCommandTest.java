@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.beust.jcommander.JCommander;
 import com.niraj.jcommander.command.AddChildCommand;
-import com.niraj.jcommander.command.AddPersonCommand;
 import com.niraj.jcommander.command.SearchRelationCommand;
 import com.niraj.jcommander.service.FamilyTreeService;
 

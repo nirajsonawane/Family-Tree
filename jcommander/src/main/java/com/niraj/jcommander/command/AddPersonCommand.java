@@ -13,7 +13,6 @@ import com.niraj.jcommander.converter.FemaleConverter;
 import com.niraj.jcommander.converter.MaleConverter;
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.service.FamilyTreeService;
-import com.niraj.jcommander.service.FamilyTreeServiceImpl;
 import com.niraj.jcommander.validator.MutuallyExclusiveFields;
 
 import lombok.Getter;

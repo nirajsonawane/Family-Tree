@@ -1,7 +1,5 @@
 package com.niraj.jcommander.command;
 
-import java.util.Optional;
-
 import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
@@ -13,13 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.niraj.jcommander.CommondProcessor;
-import com.niraj.jcommander.converter.FemaleConverter;
-import com.niraj.jcommander.converter.MaleConverter;
 import com.niraj.jcommander.converter.PersonConverter;
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.service.FamilyTreeServiceImpl;
-import com.niraj.jcommander.validator.MutuallyExclusiveFields;
 
 import lombok.EqualsAndHashCode.Exclude;
 import lombok.Getter;

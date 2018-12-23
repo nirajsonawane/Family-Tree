@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
-import com.niraj.jcommander.command.AddPersonCommand;
 import com.niraj.jcommander.command.SearchRelationCommand;
 import com.niraj.jcommander.command.UpdateSpouseCommand;
 
@@ -33,6 +32,7 @@ public class UpdateSpouseCommand_InputParsingTest {
 		String[] input = { "Husband=Ashok","Wife=Alka"};
 		JCommander jCommander = new JCommander();
 		jCommander.addObject(updateSpouseCommand);
+		jCommander.addObject(searchRelationCommand);
 		jCommander.parse(input);
 		Assert.assertTrue(updateSpouseCommand.validate());
 
@@ -43,6 +43,7 @@ public class UpdateSpouseCommand_InputParsingTest {
 		String[] input = { "Wife=Alka","Husband=Ashok"};
 		JCommander jCommander = new JCommander();
 		jCommander.addObject(updateSpouseCommand);
+		jCommander.addObject(searchRelationCommand);
 		jCommander.parse(input);
 		Assert.assertTrue(updateSpouseCommand.validate());
 	}
@@ -51,6 +52,7 @@ public class UpdateSpouseCommand_InputParsingTest {
 		String[] input = { "Wife=Alka","Wife=Ashok"};
 		JCommander jCommander = new JCommander();
 		jCommander.addObject(updateSpouseCommand);
+		jCommander.addObject(searchRelationCommand);
 		jCommander.parse(input);
 		Assert.assertFalse(updateSpouseCommand.validate());
 

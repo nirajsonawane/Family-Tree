@@ -12,12 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.niraj.jcommander.service.FamilyTreeServiceImpl;
-
 @SpringBootApplication
 public class DemoApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(FamilyTreeServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
 	public static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 	public static void main(String[] args) {
