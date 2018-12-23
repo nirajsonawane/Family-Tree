@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
-import com.niraj.jcommander.util.RelationName;
+import com.niraj.jcommander.util.RelationNameEnum;
+import com.niraj.jcommander.util.StremUtils;
 
 @Component
 public class GrandDaughterRelationshipFinder extends RelationShipFinder {
@@ -26,7 +27,7 @@ public class GrandDaughterRelationshipFinder extends RelationShipFinder {
 				.stream()
 				.map(child -> child.getRelations().getChilds())
 				.flatMap(x -> x.stream())
-				.filter(grandChild -> grandChild.getGender().equalsIgnoreCase("Female"))
+				.filter(StremUtils.FEMALE_FILTER)
 				.map(grandChild -> grandChild.getName())
 				.collect(Collectors.joining(","));
 
@@ -39,7 +40,7 @@ public class GrandDaughterRelationshipFinder extends RelationShipFinder {
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName = RelationName.GRANDAUGHTER;
+		this.relationName = RelationNameEnum.GRANDAUGHTER;
 	}
 
 }

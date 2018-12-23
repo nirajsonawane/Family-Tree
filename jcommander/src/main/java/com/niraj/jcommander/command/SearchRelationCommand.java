@@ -26,7 +26,7 @@ import lombok.ToString;
 @Setter
 @Parameters(separators = "=")
 @ToString
-@Component
+@Component 
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SearchRelationCommand implements Command<String> {
 
@@ -34,13 +34,8 @@ public class SearchRelationCommand implements Command<String> {
 
 	@Autowired
 	private RelationShipFinderFactory factory;
-
 	@Parameter	
 	private List<String> parameters = new ArrayList<>();
-	
-	
-	
-
 	@Parameter(names = { "Person" }, converter = PersonConverter.class)
 	@NotNull
 	private Person person;
@@ -54,7 +49,6 @@ public class SearchRelationCommand implements Command<String> {
 
 		String sisters = factory.getRelationShipFinder(relation).findRelation(person);
 		log.info("{} : {} ",relation, sisters);
-
 		return sisters;
 	}
 

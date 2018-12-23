@@ -1,4 +1,4 @@
-package com.niraj.jcommander;
+package com.niraj.jcommander.util;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

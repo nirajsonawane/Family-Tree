@@ -29,7 +29,7 @@ import lombok.ToString;
 public class UpdateSpouseCommand implements Command<String>{
 	
 	private static final Logger log = LoggerFactory.getLogger(UpdateSpouseCommand.class);
-	
+	 
 	@Autowired
 	private FamilyTreeServiceImpl personRepository;
 

@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.niraj.jcommander.CommondProcessor;
-import com.niraj.jcommander.InputFileReader;
+import com.niraj.jcommander.util.InputFileReader;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

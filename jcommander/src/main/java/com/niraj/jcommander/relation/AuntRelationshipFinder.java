@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
-import com.niraj.jcommander.util.RelationName;
+import com.niraj.jcommander.util.GenderEnum;
+import com.niraj.jcommander.util.RelationNameEnum;
 
 @Component
 public class AuntRelationshipFinder extends RelationShipFinder {
@@ -22,7 +23,7 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 	public String findRelation( Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Aunt for {}", findPerson);
-
+ 
 		String directAunts = "";
 		String indirectAunts = "";
 		Map<String, List<Person>> uncleAuntMap = findPerson.getParentBelongsToCurrentFamilyTree()
@@ -31,17 +32,17 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 				.flatMap(x -> x.stream())
 				.collect(Collectors.groupingBy(Person::getGender));
 
-		if (uncleAuntMap.containsKey("Female")) {
-
-			directAunts = uncleAuntMap.get("Female")
+		if (uncleAuntMap.containsKey(GenderEnum.FEMALE.name())) {
+ 
+			directAunts = uncleAuntMap.get(GenderEnum.FEMALE.name())
 					.stream()
 					.map(aunt -> aunt.getName())
 					.collect(Collectors.joining(","));
 		}
 
-		if (uncleAuntMap.containsKey("Male")) {
+		if (uncleAuntMap.containsKey(GenderEnum.MALE.name())) {
 
-			indirectAunts = uncleAuntMap.get("Male")
+			indirectAunts = uncleAuntMap.get(GenderEnum.MALE.name())
 					.stream()
 					.filter(Person::isMarried)
 					.map(uncle -> uncle.getRelations().getSpouse().getName())
@@ -57,7 +58,7 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 	@PostConstruct
 	@Override
 	void setRelationName() {
-		relationName = RelationName.AUNT;
+		relationName = RelationNameEnum.AUNT;
 	}
 
 }

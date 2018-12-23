@@ -30,14 +30,11 @@ import lombok.ToString;
 @MutuallyExclusiveFields(baseField = "son", matchField = "daughter")
 public class AddChildCommand implements Command<String> {
 
-	private static final Logger log = LoggerFactory.getLogger(AddChildCommand.class);
-	
+	private static final Logger log = LoggerFactory.getLogger(AddChildCommand.class);	
 	
 	@Autowired
 	private FamilyTreeService service;
 	
-	
-
 	@Parameter(names = { "Mother", "Father" },converter=PersonConverter.class )
 	@NotNull
 	private Person parent;
@@ -50,9 +47,8 @@ public class AddChildCommand implements Command<String> {
 
 	@Override
 	public String run() {
-		log.info("Add Child");
+		log.info("Adding Child To FamilyTree");
 		Person child = Optional.ofNullable(son).orElse(daughter);
-		service.printAll();
 		service.addChild(parent, child);
 		return "Welcome  " + child.getName(); 
 	}

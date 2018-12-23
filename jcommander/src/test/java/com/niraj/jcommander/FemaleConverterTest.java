@@ -22,6 +22,6 @@ public class FemaleConverterTest {
 		Person object = converter.convert("Niraj");
 		Assert.assertNotNull(object);
 		Assert.assertEquals("Niraj", object.getName());
-		Assert.assertEquals("Female", object.getGender());
+		Assert.assertEquals("FEMALE", object.getGender());
 	}
 }

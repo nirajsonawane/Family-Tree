@@ -3,7 +3,11 @@ package com.niraj.jcommander.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import com.niraj.jcommander.util.GenderEnum;
+import com.niraj.jcommander.util.StremUtils;
 
 import lombok.Getter;
 
@@ -15,6 +19,9 @@ public class Relation {
 	private final List<Person> parents = new ArrayList<>();
 	@Getter
 	private Person spouse;
+
+	
+
 
 	public void addChilds(Person child) {
 		childs.add(child);
@@ -29,19 +36,24 @@ public class Relation {
 	}
 
 	public List<Person> getSons() {
-		return childs.stream().filter(child -> child.getGender().equals("Male")).collect(Collectors.toList());
+		return filterList(childs,StremUtils.MALE_FILTER);
 	}
 
+
 	public List<Person> getDaughters() {
-		return childs.stream().filter(child -> child.getGender().equals("Female")).collect(Collectors.toList());
+		return filterList(childs,StremUtils.FEMALE_FILTER);
 	}
 
 	public Optional<Person> getFather() {
-		return parents.stream().filter(p -> p.getGender().equals("Male")).findFirst();
+		return filterList(parents,StremUtils.MALE_FILTER).stream().findFirst();
 	}
 
 	public Optional<Person> getMother() {
-		return parents.stream().filter(m -> m.getGender().equals("Female")).findFirst();
+		return filterList(parents, StremUtils.FEMALE_FILTER).stream().findFirst();
+	}
+	
+	public List<Person> filterList(List<Person> list , Predicate<Person> predicate) {
+		return list.stream().filter(predicate).collect(Collectors.toList());
 	}
 	
 	

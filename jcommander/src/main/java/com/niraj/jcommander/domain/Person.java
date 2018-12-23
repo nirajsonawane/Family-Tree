@@ -28,7 +28,7 @@ public class Person {
 	public List<Person> getSiblings() {
 		return getAnyParent().getRelations()
 				.getChilds()
-				.stream()
+				.stream() 
 				.filter(per -> !(per.getName().equalsIgnoreCase(name)))
 				.collect(Collectors.toList());
 	}

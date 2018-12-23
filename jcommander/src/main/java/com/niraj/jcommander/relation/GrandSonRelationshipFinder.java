@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
-import com.niraj.jcommander.util.RelationName;
+import com.niraj.jcommander.util.RelationNameEnum;
 
 @Component
 public class GrandSonRelationshipFinder extends RelationShipFinder {
@@ -39,7 +39,7 @@ public class GrandSonRelationshipFinder extends RelationShipFinder {
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName = RelationName.GRANDSON;
+		this.relationName = RelationNameEnum.GRANDSON;
 	}
 
 }

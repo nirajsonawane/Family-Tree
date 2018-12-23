@@ -35,7 +35,7 @@ public class AddPersonCommand implements Command<String> {
 	private Person mother;
 
 	@Parameter(names = "Male", converter = MaleConverter.class)
-	private Person father;
+	private Person father; 
 
 	@Override
 	public String run() {		

@@ -16,15 +16,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.niraj.jcommander.util.InputFileReader;
+
 @SpringBootApplication
-public class DemoApplication {
+public class Application {
 
-	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	public static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
+ 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoApplication.class, args);
+ 
+		ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args);
 		CommondProcessor commondProcessor = applicationContext.getBean(CommondProcessor.class);
 
 		System.out.println(
@@ -43,6 +45,7 @@ public class DemoApplication {
 			System.out.println("Input :: ");
 			inpoutLine = in.nextLine();
 			System.out.println("You entered string " + inpoutLine);
+			System.out.println("************** OutPut ****************");
 			commondProcessor.process(inpoutLine.split(" "));
 		}
 

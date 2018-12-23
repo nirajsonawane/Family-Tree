@@ -26,7 +26,7 @@ import lombok.ToString;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CleanTreeCommand implements Command<String> {
 
-	private static final Logger log = LoggerFactory.getLogger(CleanTreeCommand.class);
+	private static final Logger log = LoggerFactory.getLogger(CleanTreeCommand.class); 
 
 	@Autowired
 	FamilyTreeServiceImpl personService;

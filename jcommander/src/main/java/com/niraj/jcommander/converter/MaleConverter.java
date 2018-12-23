@@ -2,6 +2,7 @@ package com.niraj.jcommander.converter;
 
 import com.beust.jcommander.IStringConverter;
 import com.niraj.jcommander.domain.Person;
+import com.niraj.jcommander.util.GenderEnum;
 
 public class MaleConverter implements IStringConverter<Person> {
 
@@ -9,7 +10,7 @@ public class MaleConverter implements IStringConverter<Person> {
 	public Person convert(String value) {
 
 		return Person.builder().name(value)
-				.gender("Male").build();
+				.gender(GenderEnum.MALE.name()).build();
 	}
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.exception.FamilyTreeException;
-import com.niraj.jcommander.util.RelationName;
+import com.niraj.jcommander.util.RelationNameEnum;
 
 @Component
 public class MotherRelationshipFinder extends RelationShipFinder {
@@ -28,7 +28,7 @@ public class MotherRelationshipFinder extends RelationShipFinder {
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName=RelationName.MOTHER;
+		this.relationName=RelationNameEnum.MOTHER;
 		
 	}
 

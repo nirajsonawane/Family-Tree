@@ -13,11 +13,11 @@ import com.beust.jcommander.JCommander;
 import com.niraj.jcommander.command.Command;
 
 @Component
-public class CommondProcessor {
+public class CommondProcessor { 
 
 	private static final Logger log = LoggerFactory.getLogger(CommondProcessor.class);
 	
-	@Autowired
+	@Autowired 
 	private List<Command> commands;
 
 	public String process(String args[]) {

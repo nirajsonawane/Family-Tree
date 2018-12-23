@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
-import com.niraj.jcommander.util.RelationName;
+import com.niraj.jcommander.util.RelationNameEnum;
 
 @Component
 public class BrotherRelationshipFinder extends RelationShipFinder {
@@ -24,7 +24,7 @@ public class BrotherRelationshipFinder extends RelationShipFinder {
 				.stream()
 				.filter(brother -> brother.getGender().equalsIgnoreCase("Male"))
 				.map(brother -> brother.getName())
-				.collect(Collectors.joining(","));
+				.collect(Collectors.joining(",")); 
 		log.info("Brothers for {} are {}", findPerson,brothers);
 		return brothers;
 		
@@ -34,7 +34,7 @@ public class BrotherRelationshipFinder extends RelationShipFinder {
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName=RelationName.BROTHER;
+		this.relationName=RelationNameEnum.BROTHER;
 	}
 
 	

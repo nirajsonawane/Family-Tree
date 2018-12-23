@@ -12,7 +12,7 @@ public interface Command<T> {
 	public void cleanup();
 
 	public default boolean validate() {	
-		return validator.validate(this).isEmpty();
+		return validator.validate(this).isEmpty(); 
 	}
 
 }

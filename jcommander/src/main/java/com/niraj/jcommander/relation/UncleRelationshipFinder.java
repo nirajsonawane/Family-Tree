@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
-import com.niraj.jcommander.util.RelationName;
+import com.niraj.jcommander.util.GenderEnum;
+import com.niraj.jcommander.util.RelationNameEnum;
 
 import lombok.extern.java.Log;
 
@@ -35,17 +36,17 @@ public class UncleRelationshipFinder extends RelationShipFinder {
 
 		log.info("Map {}",uncleAuntMap);
 		
-		if (uncleAuntMap.containsKey("Male")) {
+		if (uncleAuntMap.containsKey(GenderEnum.MALE.name())) {
 
-			directUncle = uncleAuntMap.get("Male")
+			directUncle = uncleAuntMap.get(GenderEnum.MALE.name())
 					.stream()
 					.map(uncl -> uncl.getName())
 					.collect(Collectors.joining(","));
 		}
 
-		if (uncleAuntMap.containsKey("Female")) {
+		if (uncleAuntMap.containsKey(GenderEnum.FEMALE.name())) {
 
-			indirectUncle = uncleAuntMap.get("Female")
+			indirectUncle = uncleAuntMap.get(GenderEnum.FEMALE.name())
 					.stream()
 					.filter(Person::isMarried)
 					.map(aunt -> aunt.getRelations().getSpouse().getName())
@@ -60,7 +61,7 @@ public class UncleRelationshipFinder extends RelationShipFinder {
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName = RelationName.UNCLE;
+		this.relationName = RelationNameEnum.UNCLE;
 	}
 
 }
