@@ -30,7 +30,7 @@ public class FamilyTreeServiceImpl  implements FamilyTreeService{
 	} 
 
 	@Override
-	public void addChild(@PersonExists Person parent, @UniqueName Person child) {
+	public void addChild( Person parent,  Person child) {
 		Person parentFromList = personRepository.get(parent);
 		log.info("Parent Found {}", parentFromList);
 		parentFromList.getRelations().addChilds(child);
@@ -76,7 +76,7 @@ public class FamilyTreeServiceImpl  implements FamilyTreeService{
 	}
 	
 	@Override
-	public void printTree(@PersonExists Person person)
+	public void printTree(Person person)
 	{
 		//System.out.println("Total Pepole in Repo " + personRepository.size());
 		Person persionFromList = personRepository.get(person);
