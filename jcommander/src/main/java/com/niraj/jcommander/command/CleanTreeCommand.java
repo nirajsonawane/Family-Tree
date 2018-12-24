@@ -37,7 +37,7 @@ public class CleanTreeCommand implements Command<String> {
 	@Override
 	public String run() {
 		log.info("Clearing the family Tree");	
-		personService.cleanFamilyTree();;
+		personService.cleanFamilyTree();
 		return "Tree is Clean";
 
 	}

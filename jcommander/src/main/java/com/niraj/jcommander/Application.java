@@ -22,7 +22,7 @@ import com.niraj.jcommander.util.InputFileReader;
 public class Application {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
-	public static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+	public static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
  
 	public static void main(String[] args) throws IOException, URISyntaxException {
  
@@ -39,7 +39,7 @@ public class Application {
 			InputFileReader reader = new InputFileReader("input.txt");
 			Stream<String> readFile = reader.readFile();
 			List<String[]> collect = readFile.map(str -> str.split(" ")).collect(Collectors.toList());
-			collect.forEach(item -> commondProcessor.process(item));
+			collect.forEach(commondProcessor::process);
 		}
 		while (true) {
 			System.out.println("Input :: ");

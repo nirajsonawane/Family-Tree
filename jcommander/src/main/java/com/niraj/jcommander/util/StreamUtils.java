@@ -12,9 +12,9 @@ public class StreamUtils {
 	{
 		
 	}
-	public static Predicate<Person> MALE_FILTER = child -> child.getGender().equalsIgnoreCase(GenderEnum.MALE.name());
+	public static final Predicate<Person>  MALE_FILTER = child -> child.getGender().equalsIgnoreCase(GenderEnum.MALE.name());
 
-	public static Predicate<Person> FEMALE_FILTER = child -> child.getGender()
+	public static final Predicate<Person> FEMALE_FILTER = child -> child.getGender()
 			.equalsIgnoreCase(GenderEnum.FEMALE.name());
 
 	public static String getNamesAsStringFromList(List<Person> list) {

@@ -28,15 +28,15 @@ public abstract class RelationShipFinder {
 	}
 
 	protected String findGrandChilds(Person findPerson,Predicate<Person> filter) {
-		String grandChlids = findPerson.getRelations()
+		return findPerson.getRelations()
 				.getChilds()
 				.stream()
 				.map(child -> child.getRelations().getChilds())
 				.flatMap(List::stream)
 				.filter(filter)
-				.map(grandChild -> grandChild.getName())
+				.map(Person::getName)
 				.collect(Collectors.joining(","));
-		return grandChlids;
+		
 	}
 
 	protected String findGrandParents(Person findPerson, Predicate<Person> condition) {

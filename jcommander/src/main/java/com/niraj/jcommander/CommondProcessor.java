@@ -25,7 +25,7 @@ public class CommondProcessor {
 		log.info("Recvied Command  {}",Arrays.toString(args));
 		commands.forEach(Command::cleanup);
 		JCommander jCommander = new JCommander();
-		commands.forEach(command -> jCommander.addObject(command));	
+		commands.forEach(jCommander::addObject);	
 		jCommander.parse(args);
 		validatedCommand(args);
 		Object commandOutPut = commands.stream()
