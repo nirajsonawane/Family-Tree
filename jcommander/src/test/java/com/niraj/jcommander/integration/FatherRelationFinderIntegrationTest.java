@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.stream.Stream;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +28,7 @@ public class FatherRelationFinderIntegrationTest {
 	public void Cleanup() {
 		String[] input = { "Clean=true" };
 		commondProcessor.process(input);
-	}
+	} 
 
 	@Test
 	public void shouldFindFatherForPerson() {
@@ -52,4 +54,22 @@ public class FatherRelationFinderIntegrationTest {
 		String process3 = commondProcessor.process(input3);
 		Assert.assertTrue(process3.contains("Adam"));
 	}
+	
+	@Test(expected=ConstraintViolationException.class)
+	public void shuldThrowExceptionIfParentNotFound()
+	{
+		
+		InputFileReader reader = new InputFileReader("testInput.txt");
+		Stream<String> readFile=null;
+		try {
+			readFile = reader.readFile();
+		} catch (IOException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		readFile.forEach(str->commondProcessor.process(str.split(" ")));
+		String[] input1 = { "Person=XXXX", "Relation=Father" };
+		commondProcessor.process(input1);
+	}
+	
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.GenderEnum;
 import com.niraj.jcommander.util.RelationNameEnum;
+import com.niraj.jcommander.util.StreamUtils;
 
 @Component
 public class AuntRelationshipFinder extends RelationShipFinder {
@@ -28,16 +29,16 @@ public class AuntRelationshipFinder extends RelationShipFinder {
 		String indirectAunts = "";
 		Map<String, List<Person>> uncleAuntMap = findPerson.getParentBelongsToCurrentFamilyTree()
 				.stream() 
-				.map(parent -> parent.getSiblings())
-				.flatMap(x -> x.stream())
-				.collect(Collectors.groupingBy(Person::getGender));
+				.map(Person::getSiblings)
+				.flatMap(List::stream)
+				.collect(Collectors.groupingBy(Person::getGender));	
+		
 
 		if (uncleAuntMap.containsKey(GenderEnum.FEMALE.name())) {
  
-			directAunts = uncleAuntMap.get(GenderEnum.FEMALE.name())
-					.stream()
-					.map(aunt -> aunt.getName())
-					.collect(Collectors.joining(","));
+			List<Person> list = uncleAuntMap.get(GenderEnum.FEMALE.name());
+			directAunts =StreamUtils.getNamesAsStringFromList(list);
+			
 		}
 
 		if (uncleAuntMap.containsKey(GenderEnum.MALE.name())) {

@@ -1,5 +1,6 @@
 package com.niraj.jcommander.relation;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -25,8 +26,8 @@ public class CousinRelationshipFinder extends RelationShipFinder {
 				.getSiblings()
 				.stream() 
 				.map(uncles -> uncles.getRelations().getChilds())
-				.flatMap(x -> x.stream())
-				.map(cousins -> cousins.getName())
+				.flatMap(List::stream)
+				.map(Person::getName)
 				.collect(Collectors.joining(","));
 
 		log.info("Cousings For {} are {}",findPerson.getName(),cousinsAsString );

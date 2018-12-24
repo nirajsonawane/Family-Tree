@@ -1,7 +1,5 @@
 package com.niraj.jcommander.relation;
 
-import java.util.stream.Collectors;
-
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -10,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationNameEnum;
-import com.niraj.jcommander.util.StremUtils;
+import com.niraj.jcommander.util.StreamUtils;
 
 @Component
 public class SisterRelationshipFinder extends RelationShipFinder {
@@ -21,11 +19,7 @@ public class SisterRelationshipFinder extends RelationShipFinder {
 	public String findRelation(Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Sisters for {}", person);
-		String sisters = findPerson.getSiblings()
-				.stream()
-				.filter(StremUtils.FEMALE_FILTER)
-				.map(Person::getName)
-				.collect(Collectors.joining(","));
+		String sisters = StreamUtils.getNamesAsStringFromList(findPerson.getSiblings(StreamUtils.FEMALE_FILTER));
 		log.info("Sisters for {} are {}", person, sisters);
 		return sisters;
 
@@ -34,10 +28,8 @@ public class SisterRelationshipFinder extends RelationShipFinder {
 	@Override
 	@PostConstruct
 	void setRelationName() {
-		this.relationName= RelationNameEnum.SISTER;
-		
+		this.relationName = RelationNameEnum.SISTER;
+
 	}
-
-
 
 }

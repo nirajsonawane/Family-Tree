@@ -25,7 +25,7 @@ public class SonRelationshipFinder extends RelationShipFinder {
 				.stream()
 				.map(Person::getName)
 				.collect(Collectors.joining(","));
-		log.info("Sons for {} are {}", sons);
+		log.info("Sons for {} are {}",person.getName(), sons);
 		return sons;
 	}
 

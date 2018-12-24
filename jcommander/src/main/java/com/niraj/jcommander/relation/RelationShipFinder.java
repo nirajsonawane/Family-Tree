@@ -1,5 +1,9 @@
 package com.niraj.jcommander.relation;
 
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.niraj.jcommander.domain.Person;
@@ -22,5 +26,28 @@ public abstract class RelationShipFinder {
 	{
 		return relationName;
 	}
+
+	protected String findGrandChilds(Person findPerson,Predicate<Person> filter) {
+		String grandChlids = findPerson.getRelations()
+				.getChilds()
+				.stream()
+				.map(child -> child.getRelations().getChilds())
+				.flatMap(List::stream)
+				.filter(filter)
+				.map(grandChild -> grandChild.getName())
+				.collect(Collectors.joining(","));
+		return grandChlids;
+	}
+
+	protected String findGrandParents(Person findPerson, Predicate<Person> condition) {
+		return findPerson.getParent()
+				.stream()
+				.map(Person::getParent) 
+				.flatMap(List::stream)
+				.filter(condition)
+				.map(Person::getName)
+				.collect(Collectors.joining(","));
+	}
+	
 	
 }

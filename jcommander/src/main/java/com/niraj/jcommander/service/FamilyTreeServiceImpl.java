@@ -1,7 +1,5 @@
 package com.niraj.jcommander.service;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.repository.PersonRepository;
-import com.niraj.jcommander.validator.PersonExists;
-import com.niraj.jcommander.validator.UniqueName;
 
 @Component
 @Validated
@@ -76,30 +72,17 @@ public class FamilyTreeServiceImpl implements FamilyTreeService {
 
 	}
 
-	@Override
-	public void printTree(Person person) {
-		// System.out.println("Total Pepole in Repo " + personRepository.size());
-		Person persionFromList = personRepository.get(person);
-		System.out.println(persionFromList.printPerson());
-		List<Person> childs = persionFromList.getRelations().getChilds();
-		childs.forEach(p -> System.out.print(p.printPerson()));
-		if (persionFromList.getRelations().getChilds().size() > 0)
-			System.out.println();
-		childs.forEach(p -> {
-			p.getRelations().getChilds().forEach(child -> printTree(child));
-		});
-
-	}
+	
 
 	@Override
 	public Person findPerson(Person person) {
 		return personRepository.get(person);
 	}
 
-	@Override
+	/*@Override
 	public void printAll() {
 		personRepository.getAll().forEach(System.out::println);
-	}
+	}*/
 
 	@Override
 	public void cleanFamilyTree() {

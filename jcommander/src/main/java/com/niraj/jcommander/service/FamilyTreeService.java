@@ -6,11 +6,9 @@ import com.niraj.jcommander.validator.UniqueName;
 
 public interface FamilyTreeService {
 
-	void printAll();
+	//void printAll();
 
 	Person findPerson(@PersonExists Person person);
-
-	void printTree(@PersonExists Person person);
 
 	String updateSpouse(Person husband, Person wife);
 

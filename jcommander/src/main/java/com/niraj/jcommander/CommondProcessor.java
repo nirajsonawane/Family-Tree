@@ -18,7 +18,7 @@ public class CommondProcessor {
 	private static final Logger log = LoggerFactory.getLogger(CommondProcessor.class);
 	
 	@Autowired 
-	private List<Command> commands;
+	private List<Command<String>> commands;
 
 	public String process(String args[]) {
 
@@ -33,7 +33,7 @@ public class CommondProcessor {
 										.findFirst().get().run();
 		log.info("Command  OutPut {} ",commandOutPut);
 		return commandOutPut.toString();
-	}
+	} 
 	
  
 	private void validatedCommand(String[] args) {

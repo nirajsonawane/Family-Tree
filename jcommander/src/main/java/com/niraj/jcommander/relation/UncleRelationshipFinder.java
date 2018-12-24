@@ -14,8 +14,6 @@ import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.GenderEnum;
 import com.niraj.jcommander.util.RelationNameEnum;
 
-import lombok.extern.java.Log;
-
 @Component
 public class UncleRelationshipFinder extends RelationShipFinder {
 
@@ -30,8 +28,8 @@ public class UncleRelationshipFinder extends RelationShipFinder {
 
 		Map<String, List<Person>> uncleAuntMap = findPerson.getParentBelongsToCurrentFamilyTree()
 				.stream()
-				.map(parent -> parent.getSiblings())
-				.flatMap(x -> x.stream())
+				.map(Person::getSiblings)
+				.flatMap(List::stream)
 				.collect(Collectors.groupingBy(Person::getGender));
 
 		log.info("Map {}",uncleAuntMap);
@@ -40,7 +38,7 @@ public class UncleRelationshipFinder extends RelationShipFinder {
 
 			directUncle = uncleAuntMap.get(GenderEnum.MALE.name())
 					.stream()
-					.map(uncl -> uncl.getName())
+					.map(Person::getName)
 					.collect(Collectors.joining(","));
 		}
 

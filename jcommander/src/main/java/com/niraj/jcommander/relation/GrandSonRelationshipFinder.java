@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.niraj.jcommander.domain.Person;
 import com.niraj.jcommander.util.RelationNameEnum;
-import com.niraj.jcommander.util.StremUtils;
+import com.niraj.jcommander.util.StreamUtils;
 
 @Component
 public class GrandSonRelationshipFinder extends RelationShipFinder {
@@ -19,7 +19,7 @@ public class GrandSonRelationshipFinder extends RelationShipFinder {
 	public String findRelation(Person person) {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Grand Sons for {}", findPerson);
-		String grandChlids = findGrandChilds(findPerson,StremUtils.MALE_FILTER);
+		String grandChlids = findGrandChilds(findPerson,StreamUtils.MALE_FILTER);
 		log.info("Grand Sons for {} are {}", findPerson, grandChlids);
 		return grandChlids;
 

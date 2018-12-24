@@ -1,6 +1,7 @@
 package com.niraj.jcommander.domain;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.niraj.jcommander.exception.FamilyTreeException;
@@ -29,6 +30,14 @@ public class Person {
 		return getAnyParent().getRelations()
 				.getChilds()
 				.stream() 
+				.filter(per -> !(per.getName().equalsIgnoreCase(name)))
+				.collect(Collectors.toList());
+	}
+	public List<Person> getSiblings(Predicate<Person> filter) {
+		return getAnyParent().getRelations()
+				.getChilds()
+				.stream() 
+				.filter(filter)
 				.filter(per -> !(per.getName().equalsIgnoreCase(name)))
 				.collect(Collectors.toList());
 	}

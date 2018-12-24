@@ -20,8 +20,8 @@ public class FatherRelationshipFinder extends RelationShipFinder {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Father for {}", findPerson);
 		Person sons = findPerson.getRelations()
-				.getFather().orElseThrow(()->new FamilyTreeException("No Father"));
-		log.info("Father for {} are {}", sons.getName());
+				.getFather().orElseThrow(()->new FamilyTreeException("No Father For " + person.getName()));
+		log.info("Father for {} are {}", person.getName(), sons.getName());
 		return sons.getName();
 	}
 
@@ -31,7 +31,4 @@ public class FatherRelationshipFinder extends RelationShipFinder {
 		this.relationName=RelationNameEnum.FATHER;
 		
 	}
-
-	
-
 }

@@ -20,8 +20,8 @@ public class MotherRelationshipFinder extends RelationShipFinder {
 		Person findPerson = familyTreeService.findPerson(person);
 		log.info("Finding Mother for {}", findPerson);
 		Person sons = findPerson.getRelations()
-				.getMother().orElseThrow(()->new FamilyTreeException("No Mother"));
-		log.info("Mother for {} are {}", sons.getName());
+				.getMother().orElseThrow(()->new FamilyTreeException("No Mother for " + person.getName()));
+		log.info("Mother for {} are {}", person.getName(),sons.getName());
 		return sons.getName();
 	}
 
