@@ -30,7 +30,7 @@ public class CommondProcessor {
 		validatedCommand(args);
 		Object commandOutPut = commands.stream()
 										.filter(Command::validate)
-										.findFirst().get().run();
+										.findFirst().get().run(); 
 		log.info("Command  OutPut {} ",commandOutPut);
 		return commandOutPut.toString();
 	} 

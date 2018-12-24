@@ -42,11 +42,18 @@ public class Application {
 			collect.forEach(commondProcessor::process);
 		}
 		while (true) {
-			System.out.println("Input :: ");
-			inpoutLine = in.nextLine();
-			System.out.println("You entered string " + inpoutLine);
-			System.out.println("************** OutPut ****************");
-			commondProcessor.process(inpoutLine.split(" "));
+			try {
+				System.out.println("-----------------------------------------------------------");
+				
+				System.out.println("Input :: ");
+				inpoutLine = in.nextLine();
+				System.out.println("You entered string " + inpoutLine);
+				System.out.println("************** OutPut ****************");
+				commondProcessor.process(inpoutLine.split(" ")); 
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
